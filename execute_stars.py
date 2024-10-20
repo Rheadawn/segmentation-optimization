@@ -10,11 +10,11 @@ def by_length(x): # segmentSize
     command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=BY_LENGTH --segmentationValue={x}\""
     return segmentation_run(command)
 
-def static_segment_length_ticks(x, y): # windowSize, stepSize
+def static_segment_length_ticks(x, y): # windowSize, overlapPercentage
     command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_TICKS --segmentationValue={x} --secondarySegmentationValue={y}\""
     return segmentation_run(command)
 
-def static_segment_length_meters(x, y): # windowSize, stepSize
+def static_segment_length_meters(x, y): # windowSize, overlapPercentage
     command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_METERS --segmentationValue={x} --secondarySegmentationValue={y}\""
     return segmentation_run(command)
 

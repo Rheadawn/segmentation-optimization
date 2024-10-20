@@ -5,9 +5,9 @@ def getBounds(segmentationType):
         case "BY_LENGTH":
             return {'x': (100, 200)} #segmentSize
         case "STATIC_SEGMENT_LENGTH_TICKS":
-            return {'x': (50, 200), 'y': (0.1, 0.75)} #windowSize, stepSize
+            return {'x': (50, 200), 'y': (0.1, 0.75)} #windowSize, overlapPercentage
         case "STATIC_SEGMENT_LENGTH_METERS":
-            return {'x': (30, 150), 'y': (0.1, 0.75)} #windowSize, stepSize
+            return {'x': (30, 150), 'y': (0.1, 0.75)} #windowSize, overlapPercentage
         case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
             return {'x': (10, 100), 'y': (1, 50)} #lookAhead, stepSize
         case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":

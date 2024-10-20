@@ -24,7 +24,7 @@ def grid_search_two_dimensions():
     if args.segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
         print("\n| result | lookAhead | stepSize |")
     else:
-        print("\n| result | windowSize | stepSize |")
+        print("\n| result | windowSize | overlapPercentage |")
     print("\n|---|---|---|")
     for i in floatRange(pbounds['x'][0], pbounds['x'][1], args.stepSizeDim1):
         for j in floatRange(pbounds['y'][0], pbounds['y'][1], args.stepSizeDim2):

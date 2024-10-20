@@ -1,22 +1,28 @@
 import time
+import argparse
 from bayes_opt import BayesianOptimization
-from execute_stars import default_run
 from execute_stars import get_total_execution_time
+from functionSelector import getBounds, getMethod
 
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description='Bayesian Optimization for STARS')
+parser.add_argument('--segmentationType', type=str, default="BY_BLOCK", help='Name of the used segmentation method')
+args = parser.parse_args()
 
 # Bounded region of parameter space
-pbounds = {'x': (100, 200)}
+pbounds = getBounds(args.segmentationType)
+method = getMethod(args.segmentationType)
 
 optimizer = BayesianOptimization(
-    f=default_run,
+    f=method,
     pbounds=pbounds,
     random_state=1,
 )
 
 start_time = time.time()
 optimizer.maximize(
-    init_points=2,
-    n_iter=1,
+    init_points=10,
+    n_iter=25,
 )
 end_time = time.time()
 

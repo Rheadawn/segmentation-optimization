@@ -3,15 +3,16 @@ from execute_stars import by_length, static_segment_length_ticks, static_segment
 def getBounds(segmentationType):
     match segmentationType:
         case "BY_LENGTH":
-            return {'x': (100, 200)}
+            return {'x': (100, 200)} #segmentSize
         case "STATIC_SEGMENT_LENGTH_TICKS":
-            return {'windowSize': (50, 200), 'stepSize': (0.1, 0.75)}
+            return {'x': (50, 200), 'y': (0.1, 0.75)} #windowSize, stepSize
         case "STATIC_SEGMENT_LENGTH_METERS":
-            return {'windowSize': (30, 150), 'stepSize': (0.1, 0.75)}
-        case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
-            return {'lookAhead': (10, 100), 'scalar': (200, 400), 'stepSize': (1, 50)}
+            return {'x': (30, 150), 'y': (0.1, 0.75)} #windowSize, stepSize
         case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
-            return {'lookAhead': (10, 100), 'stepSize': (1, 50)}
+            return {'x': (10, 100), 'y': (1, 50)} #lookAhead, stepSize
+        case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
+            return {'x': (10, 100), 'y': (200, 400), 'z': (1, 50)} #lookAhead, scalar, stepSize
+        
         
 def getMethod(segmentationType):
     match segmentationType:
@@ -25,3 +26,17 @@ def getMethod(segmentationType):
             return dynamic_segment_length_meters_speed
         case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
             return dynamic_segment_length_meters_speed_acceleration_1
+        
+
+def getNumberOfDimensions(segmentationType):
+    match segmentationType:
+        case "BY_LENGTH":
+            return 1
+        case "STATIC_SEGMENT_LENGTH_TICKS":
+            return 2
+        case "STATIC_SEGMENT_LENGTH_METERS":
+            return 2
+        case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
+            return 3
+        case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
+            return 2

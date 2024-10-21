@@ -10,8 +10,8 @@ def by_length(x): # segmentSize
     command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=BY_LENGTH --segmentationValue={x}\""
     return segmentation_run(command)
 
-def static_segment_length_ticks(x, y): # windowSize, overlapPercentage
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_TICKS --segmentationValue={x} --secondarySegmentationValue={y}\""
+def static_segment_length_seconds(x, y): # windowSize, overlapPercentage
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_SECONDS --segmentationValue={x} --secondarySegmentationValue={y}\""
     return segmentation_run(command)
 
 def static_segment_length_meters(x, y): # windowSize, overlapPercentage
@@ -24,6 +24,14 @@ def dynamic_segment_length_meters_speed_acceleration_1(x, y): # lookAhead, stepS
 
 def dynamic_segment_length_meters_speed(x, y, z): # lookAhead, scalar, stepSize
     command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED --segmentationValue={x} --secondarySegmentationValue={y} --tertiarySegmentationValue={z}\""
+    return segmentation_run(command)
+
+def sliding_window_multistart_meters(x, y, z): # windowSize1, windowSize2, windowSize3
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_METERS --segmentationValue={x} --secondarySegmentationValue={y} --tertiarySegmentationValue={z}\""
+    return segmentation_run(command)
+
+def sliding_window_multistart_seconds(x, y, z): # windowSize1, windowSize2, windowSize3
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_SECONDS --segmentationValue={x} --secondarySegmentationValue={y} --tertiarySegmentationValue={z}\""
     return segmentation_run(command)
 
 def segmentation_run(command):

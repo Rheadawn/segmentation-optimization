@@ -36,7 +36,10 @@ def grid_search_two_dimensions():
  
 def grid_search_three_dimensions():
     maxResult = 0
-    print("\n| result | lookAhead | scalar | stepSize |")
+    if args.segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
+        print("\n| result | lookAhead | scalar | stepSize |")
+    else:
+        print("\n| result | windowSize1 | windowSize2 | windowSize3 |")
     print("\n|---|---|---|---|")
     for i in floatRange(pbounds['x'][0], pbounds['x'][1], args.stepSizeDim1):
         for j in floatRange(pbounds['y'][0], pbounds['y'][1], args.stepSizeDim2):

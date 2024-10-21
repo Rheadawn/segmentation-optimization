@@ -34,7 +34,10 @@ def random_search_two_dimensions():
 
 def random_search_three_dimensions():
     maxResult = 0
-    print("\n| result | lookAhead | scalar | stepSize |")
+    if args.segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
+        print("\n| result | lookAhead | scalar | stepSize |")
+    else:
+        print("\n| result | windowSize1 | windowSize2 | windowSize3 |")
     print("\n|---|---|---|---|")
     for i in range(0, args.numberOfIterations, 1):
         x = random.uniform(pbounds['x'][0], pbounds['x'][1])

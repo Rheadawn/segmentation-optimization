@@ -19,11 +19,11 @@ def static_segment_length_meters(x, y): # windowSize, overlapPercentage
     return segmentation_run(command)
 
 def dynamic_segment_length_meters_speed_acceleration_1(x, y): # lookAhead, stepSize
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1 --lookAhead={x} --secondarySegmentationValue={y}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1 --segmentationValue={x} --secondarySegmentationValue={y}\""
     return segmentation_run(command)
 
 def dynamic_segment_length_meters_speed(x, y, z): # lookAhead, scalar, stepSize
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED --lookAhead={x} --scalar={y} --secondarySegmentationValue={z}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED --segmentationValue={x} --secondarySegmentationValue={y} --tertiarySegmentationValue={z}\""
     return segmentation_run(command)
 
 def segmentation_run(command):

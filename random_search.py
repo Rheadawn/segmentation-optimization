@@ -6,12 +6,12 @@ from functionSelector import getBounds, getMethod, getNumberOfDimensions
 
 def random_search_one_dimension():
     maxResult = 0
-    print("\n| result | segmentSize |")
-    print("\n|---|---|")
+    print("| result | segmentSize |")
+    print("|---|---|")
     for i in range(0, args.numberOfIterations, 1):
         x = random.uniform(pbounds['x'][0], pbounds['x'][1])
         result = method(x)
-        print(f"\n| {result} | {x:.2f} |")
+        print(f"| {result} | {x:.2f} |")
         if result > maxResult:
             maxResult = result
     return maxResult
@@ -19,15 +19,15 @@ def random_search_one_dimension():
 def random_search_two_dimensions():
     maxResult = 0
     if args.segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
-        print("\n| result | lookAhead | stepSize |")
+        print("| result | lookAhead | stepSize |")
     else:
-        print("\n| result | windowSize | overlapPercentage |")
-    print("\n|---|---|---|")
+        print("| result | windowSize | overlapPercentage |")
+    print("|---|---|---|")
     for i in range(0, args.numberOfIterations, 1):
         x = random.uniform(pbounds['x'][0], pbounds['x'][1])
         y = random.uniform(pbounds['y'][0], pbounds['y'][1])
         result = method(x, y)
-        print(f"\n| {result} | {x:.2f} | {y:.2f} |")
+        print(f"| {result} | {x:.2f} | {y:.2f} |")
         if result > maxResult:
             maxResult = result
     return maxResult
@@ -35,16 +35,16 @@ def random_search_two_dimensions():
 def random_search_three_dimensions():
     maxResult = 0
     if args.segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
-        print("\n| result | lookAhead | scalar | stepSize |")
+        print("| result | lookAhead | scalar | stepSize |")
     else:
-        print("\n| result | windowSize1 | windowSize2 | windowSize3 |")
-    print("\n|---|---|---|---|")
+        print("| result | windowSize1 | windowSize2 | windowSize3 |")
+    print("|---|---|---|---|")
     for i in range(0, args.numberOfIterations, 1):
         x = random.uniform(pbounds['x'][0], pbounds['x'][1])
         y = random.uniform(pbounds['y'][0], pbounds['y'][1])
         z = random.uniform(pbounds['z'][0], pbounds['z'][1])
         result = method(x, y, z)
-        print(f"\n| {result} | {x:.2f} | {y:.2f} | {z:.2f} |")
+        print(f"| {result} | {x:.2f} | {y:.2f} | {z:.2f} |")
         if result > maxResult:
             maxResult = result
     return maxResult
@@ -71,6 +71,6 @@ elif(dimCount == 3):
     maxResult = random_search_three_dimensions()
 end_time = time.time()
 
-print(f"\nMAXIMUM: {maxResult}\n")
+print(f"MAXIMUM: {maxResult}\n")
 print(f"STARS execution time: {get_total_execution_time():.0f} s\n")
 print(f"Total execution time: {(end_time - start_time):.0f} s\n")

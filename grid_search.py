@@ -10,11 +10,11 @@ def floatRange(start, stop, step):
 
 def grid_search_one_dimension():
     maxResult = 0
-    print("\n| result | segmentSize |")
-    print("\n|---|---|")
+    print("| result | segmentSize |")
+    print("|---|---|")
     for i in floatRange(pbounds['x'][0], pbounds['x'][1], args.stepSizeDim1):
         result = method(i)
-        print(f"\n| {result} | {i} |")
+        print(f"| {result} | {i} |")
         if result > maxResult:
             maxResult = result
     return maxResult
@@ -22,14 +22,14 @@ def grid_search_one_dimension():
 def grid_search_two_dimensions():
     maxResult = 0
     if args.segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
-        print("\n| result | lookAhead | stepSize |")
+        print("| result | lookAhead | stepSize |")
     else:
-        print("\n| result | windowSize | overlapPercentage |")
-    print("\n|---|---|---|")
+        print("| result | windowSize | overlapPercentage |")
+    print("|---|---|---|")
     for i in floatRange(pbounds['x'][0], pbounds['x'][1], args.stepSizeDim1):
         for j in floatRange(pbounds['y'][0], pbounds['y'][1], args.stepSizeDim2):
             result = method(i, j)
-            print(f"\n| {result} | {i} | {j} |")
+            print(f"| {result} | {i} | {j} |")
             if result > maxResult:
                 maxResult = result
     return maxResult
@@ -37,15 +37,15 @@ def grid_search_two_dimensions():
 def grid_search_three_dimensions():
     maxResult = 0
     if args.segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
-        print("\n| result | lookAhead | scalar | stepSize |")
+        print("| result | lookAhead | scalar | stepSize |")
     else:
-        print("\n| result | windowSize1 | windowSize2 | windowSize3 |")
-    print("\n|---|---|---|---|")
+        print("| result | windowSize1 | windowSize2 | windowSize3 |")
+    print("|---|---|---|---|")
     for i in floatRange(pbounds['x'][0], pbounds['x'][1], args.stepSizeDim1):
         for j in floatRange(pbounds['y'][0], pbounds['y'][1], args.stepSizeDim2):
             for k in floatRange(pbounds['z'][0], pbounds['z'][1], args.stepSizeDim3):
                 result = method(i, j, k)
-                print(f"\n| {result} | {i} | {j} | {k} |")
+                print(f"| {result} | {i} | {j} | {k} |")
                 if result > maxResult:
                     maxResult = result
     return maxResult
@@ -74,6 +74,6 @@ elif(dimCount == 3):
     maxResult = grid_search_three_dimensions()
 end_time = time.time()
 
-print(f"\nMAXIMUM: {maxResult}\n")
+print(f"MAXIMUM: {maxResult}\n")
 print(f"STARS execution time: {get_total_execution_time():.0f} s\n")
 print(f"Total execution time: {(end_time - start_time):.0f} s\n")

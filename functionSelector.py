@@ -3,21 +3,20 @@ from execute_stars import by_length, static_segment_length_seconds, static_segme
 def getBounds(segmentationType):
     match segmentationType:
         case "BY_LENGTH":
-            return {'x': (100, 200)} #segmentSize
+            return [(100, 200)] # segmentSize
         case "STATIC_SEGMENT_LENGTH_SECONDS":
-            return {'x': (25, 100), 'y': (0.1, 0.75)} #windowSize, overlapPercentage
+            return [(25, 100), (0.1, 0.75)] # windowSize, overlapPercentage
         case "STATIC_SEGMENT_LENGTH_METERS":
-            return {'x': (30, 150), 'y': (0.1, 0.75)} #windowSize, overlapPercentage
+            return [(30, 150), (0.1, 0.75)] # windowSize, overlapPercentage
         case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
-            return {'x': (10, 100), 'y': (1, 50)} #lookAhead, stepSize
+            return [(10, 100), (1, 50)] # lookAhead, stepSize
         case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
-            return {'x': (10, 100), 'y': (200, 400), 'z': (1, 50)} #lookAhead, scalar, stepSize
+            return [(10, 100), (200, 400), (1, 50)] # lookAhead, scalar, stepSize
         case "SLIDING_WINDOW_MULTISTART_METERS":
-            return {'x': (30, 150), 'y': (30, 150), 'z': (30, 150)} #windowSize1, windowSize2, windowSize3
+            return [(30, 150), (30, 150), (30, 150)] # windowSize1, windowSize2, windowSize3
         case "SLIDING_WINDOW_MULTISTART_SECONDS":
-            return {'x': (25, 100), 'y': (25, 100), 'z': (25, 100)} #windowSize1, windowSize2, windowSize3
-        
-        
+            return [(25, 100), (25, 100), (25, 100)] # windowSize1, windowSize2, windowSize3
+
 def getMethod(segmentationType):
     match segmentationType:
         case "BY_LENGTH":
@@ -34,7 +33,6 @@ def getMethod(segmentationType):
             return sliding_window_multistart_meters
         case "SLIDING_WINDOW_MULTISTART_SECONDS":
             return sliding_window_multistart_seconds
-        
 
 def getNumberOfDimensions(segmentationType):
     match segmentationType:

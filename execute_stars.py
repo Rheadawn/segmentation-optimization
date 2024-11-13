@@ -3,43 +3,73 @@ import time
 import subprocess
 import glob
 import os
+import json
+import uuid
 
 total_execution_time = 0
 
 def by_length(x): # [segmentSize]
     segmentSize = x[0]
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=BY_LENGTH --segmentationValue={segmentSize}\""
-    return segmentation_run(command)
+
+    # generate a unique and descriptive folder name
+    folderName = f"by_length_{tsc}_{metric}_{uuid.uuid4()}"
+
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=BY_LENGTH --segmentationValue={segmentSize} --saveResults --folderName={folderName}\""
+    return segmentation_run(command, folderName)
 
 def static_segment_length_seconds(x): # [windowSize, overlapPercentage]
     windowSize, overlapPercentage = x
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_SECONDS --segmentationValue={windowSize} --secondarySegmentationValue={overlapPercentage}\""
-    return segmentation_run(command)
+
+    # generate a unique and descriptive folder name
+    folderName = f"static_segment_length_seconds_{tsc}_{metric}_{uuid.uuid4()}"
+
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_SECONDS --segmentationValue={windowSize} --secondarySegmentationValue={overlapPercentage} --saveResults --folderName={folderName}\""
+    return segmentation_run(command, folderName)
 
 def static_segment_length_meters(x): # [windowSize, overlapPercentage]
     windowSize, overlapPercentage = x
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_METERS --segmentationValue={windowSize} --secondarySegmentationValue={overlapPercentage}\""
-    return segmentation_run(command)
+
+    # generate a unique and descriptive folder name
+    folderName = f"static_segment_length_meters_{tsc}_{metric}_{uuid.uuid4()}"
+
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_METERS --segmentationValue={windowSize} --secondarySegmentationValue={overlapPercentage} --saveResults --folderName={folderName}\""
+    return segmentation_run(command, folderName)
 
 def dynamic_segment_length_meters_speed_acceleration_1(x): # [lookAhead, stepSize]
     lookAhead, stepSize = x
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1 --segmentationValue={lookAhead} --secondarySegmentationValue={stepSize}\""
-    return segmentation_run(command)
+
+    # generate a unique and descriptive folder name
+    folderName = f"dynamic_segment_length_meters_speed_acceleration_1_{tsc}_{metric}_{uuid.uuid4()}"
+
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1 --segmentationValue={lookAhead} --secondarySegmentationValue={stepSize} --saveResults --folderName={folderName}\""
+    return segmentation_run(command, folderName)
 
 def dynamic_segment_length_meters_speed(x): # [lookAhead, scalar, stepSize]
     lookAhead, scalar, stepSize = x
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED --segmentationValue={lookAhead} --secondarySegmentationValue={scalar} --tertiarySegmentationValue={stepSize}\""
-    return segmentation_run(command)
+
+    # generate a unique and descriptive folder name
+    folderName = f"dynamic_segment_length_meters_speed_{tsc}_{metric}_{uuid.uuid4()}"
+
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED --segmentationValue={lookAhead} --secondarySegmentationValue={scalar} --tertiarySegmentationValue={stepSize} --saveResults --folderName={folderName}\""
+    return segmentation_run(command, folderName)
 
 def sliding_window_multistart_meters(x): # [windowSize1, windowSize2, windowSize3]
     windowSize1, windowSize2, windowSize3 = x
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_METERS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3}\""
-    return segmentation_run(command)
+
+    # generate a unique and descriptive folder name
+    folderName = f"sliding_window_multistart_meters_{tsc}_{metric}_{uuid.uuid4()}"
+
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_METERS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3} --saveResults --folderName={folderName}\""
+    return segmentation_run(command, folderName)
 
 def sliding_window_multistart_seconds(x): # [windowSize1, windowSize2, windowSize3]
     windowSize1, windowSize2, windowSize3 = x
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_SECONDS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3}\""
-    return segmentation_run(command)
+
+    # generate a unique and descriptive folder name
+    folderName = f"sliding_window_multistart_seconds_{tsc}_{metric}_{uuid.uuid4()}"
+
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_SECONDS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3} --saveResults --folderName={folderName}\""
+    return segmentation_run(command, folderName)
 
 def segmentation_run(command):
     global total_execution_time

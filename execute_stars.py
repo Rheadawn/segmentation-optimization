@@ -7,6 +7,9 @@ import json
 import uuid
 
 total_execution_time = 0
+tsc = "full-TSC"
+metric = "metric1"
+featureName = "Overtaking"
 
 def by_length(x): # [segmentSize]
     segmentSize = x[0]
@@ -71,34 +74,120 @@ def sliding_window_multistart_seconds(x): # [windowSize1, windowSize2, windowSiz
     command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_SECONDS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3} --saveResults --folderName={folderName}\""
     return segmentation_run(command, folderName)
 
-def segmentation_run(command):
+def getJson(metric, folderName):
+    global tsc
+
+    # Go to serialized-results folder and get metric for tsc out of result folder
+    folder_path = os.path.join('..', 'stars-carla-experiments', 'serialized-results', folderName, metric, tsc.replace('-',' ') + '.json')
+    result_file = glob.glob(folder_path)
+
+    # Load json and return value
+    fileContent = open(result_file[0], 'r').read()
+    return json.loads(fileContent)
+
+def getSingleMetric(metric, valueName, folderName):
+    result = getJson(metric, folderName)
+    print(f"{metric}: {result[valueName]}")
+    return result[valueName]
+
+def outgoingEdgesContainFeature(outgoingEdges, featureName):
+    containsFeature = False
+
+    for edge in outgoingEdges:
+        destination = edge['destination']
+        if destination['label'] == featureName:
+            containsFeature = True
+        else:
+            if outgoingEdgesContainFeature(destination['outgoingEdges'], featureName):
+                containsFeature = True
+
+    return containsFeature
+
+def getFeatureCount(metric, featureName, folderName):
+    jsonFile = getJson(metric, folderName)
+
+    values = jsonFile['value']
+    count = 0
+
+    for value in values:
+        if metric == 'valid-tsc-instances-per-tsc':
+            value = value['tscInstance']
+        if value['label'] == featureName:
+            count += 1
+        else:
+            if outgoingEdgesContainFeature(value['outgoingEdges'], featureName):
+                count += 1
+
+    return count
+
+def calculateTscCoverage(folderName):
+    valid_tsc_instances = getSingleMetric('valid-tsc-instances-per-tsc', 'count', folderName)
+    missed_tsc_instances = getSingleMetric('missed-tsc-instances-per-tsc', 'count', folderName)
+    return -(valid_tsc_instances / (valid_tsc_instances + missed_tsc_instances))
+
+def calculateFeatureCombinationCoverage(folderName):
+    found_predicate_combinations = getSingleMetric('missed-predicate-combinations', 'found', folderName)
+    missed_predicate_combinations = getSingleMetric('missed-predicate-combinations', 'count', folderName)
+    return -(found_predicate_combinations / (found_predicate_combinations + missed_predicate_combinations))
+
+def calculateFeatureCoverage(folderName):
+    global featureName
+    found_instances_with_feature = getFeatureCount('valid-tsc-instances-per-tsc', featureName, folderName)
+    missed_instances_with_feature = getFeatureCount('missed-tsc-instances-per-tsc', featureName, folderName)
+    return -(found_instances_with_feature / (found_instances_with_feature + missed_instances_with_feature))
+
+def simpleMetric(folderName):
+    tsc_coverage = calculateTscCoverage(folderName)
+    feature_combination_coverage = calculateFeatureCombinationCoverage(folderName)
+    conformity_rate_seconds = getSingleMetric('segment-length-metric', 'conformityRateSeconds', folderName)
+    conformity_rate_meters = getSingleMetric('segment-length-metric', 'conformityRateMeters', folderName)
+
+    reward = (tsc_coverage + feature_combination_coverage) / 2
+    punishment = -(((1-conformity_rate_seconds)**2 + (1-conformity_rate_meters)**2) / 2)
+
+    return reward - punishment
+
+def specificMetric(folderName):
+    tsc_coverage = calculateTscCoverage(folderName)
+    feature_combination_coverage = calculateFeatureCombinationCoverage(folderName)
+    feature_coverage = calculateFeatureCoverage(folderName)
+    conformity_rate_seconds = getSingleMetric('segment-length-metric', 'conformityRateSeconds', folderName)
+    conformity_rate_meters = getSingleMetric('segment-length-metric', 'conformityRateMeters', folderName)
+
+    reward = (tsc_coverage + feature_combination_coverage + feature_coverage) / 3
+    punishment = -(((1-conformity_rate_seconds)**2 + (1-conformity_rate_meters)**2) / 2)
+    
+    return reward - punishment
+
+def segmentation_run(command, folderName):
     global total_execution_time
+    global metric
 
     # Execute stars analysis
     start_time = time.time()
-    result = subprocess.run(command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+    subprocess.run(command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     end_time = time.time()
+
+    # Track execution time
     print(f"Execution time: {(end_time - start_time):.0f} s")
     total_execution_time += (end_time - start_time)
 
-    # Go to analysis-result-logs folder
-    folders = glob.glob(os.path.join(r"..\stars-carla-experiments\analysis-result-logs", '*'))
-
-    # Get info file of newest analysis
-    newest_folder = max(folders, key=os.path.getmtime)
-    subfolder_path = os.path.join(newest_folder, r"metrics\valid-tsc-instances-per-projection")
-    files = glob.glob(os.path.join(subfolder_path, '*info*'))
-
-    # Get the first number of the info file (number of valid instances for 'all')
-    result = 0
-    with open(files[0], 'r') as f:
-        for word in f.readline().split():
-            if re.match(r'^\d+$', word):
-                result = int(word)
-                break
-
-    return -result
+    # Return metric
+    metric_function = globals()[metric]
+    return metric_function(folderName)
 
 def get_total_execution_time():
     global total_execution_time
     return total_execution_time
+
+def set_TSC(tscName):
+    global tsc
+    tsc = tscName
+
+def set_metric(metricName):
+    global metric
+    metric = metricName
+
+def set_featureName(name):
+    global featureName
+    featureName = name

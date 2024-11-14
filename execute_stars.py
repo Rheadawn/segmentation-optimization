@@ -17,7 +17,7 @@ def by_length(x): # [segmentSize]
     # generate a unique and descriptive folder name
     folderName = f"by_length_{tsc}_{metric}_{uuid.uuid4()}"
 
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=BY_LENGTH --segmentationValue={segmentSize} --saveResults --folderName={folderName}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=BY_LENGTH --segmentationValue={segmentSize} --saveResults --folderName={folderName} --featureName={featureName}\""
     return segmentation_run(command, folderName)
 
 def static_segment_length_seconds(x): # [windowSize, overlapPercentage]
@@ -26,7 +26,7 @@ def static_segment_length_seconds(x): # [windowSize, overlapPercentage]
     # generate a unique and descriptive folder name
     folderName = f"static_segment_length_seconds_{tsc}_{metric}_{uuid.uuid4()}"
 
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_SECONDS --segmentationValue={windowSize} --secondarySegmentationValue={overlapPercentage} --saveResults --folderName={folderName}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_SECONDS --segmentationValue={windowSize} --secondarySegmentationValue={overlapPercentage} --saveResults --folderName={folderName} --featureName={featureName}\""
     return segmentation_run(command, folderName)
 
 def static_segment_length_meters(x): # [windowSize, overlapPercentage]
@@ -35,7 +35,7 @@ def static_segment_length_meters(x): # [windowSize, overlapPercentage]
     # generate a unique and descriptive folder name
     folderName = f"static_segment_length_meters_{tsc}_{metric}_{uuid.uuid4()}"
 
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_METERS --segmentationValue={windowSize} --secondarySegmentationValue={overlapPercentage} --saveResults --folderName={folderName}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=STATIC_SEGMENT_LENGTH_METERS --segmentationValue={windowSize} --secondarySegmentationValue={overlapPercentage} --saveResults --folderName={folderName} --featureName={featureName}\""
     return segmentation_run(command, folderName)
 
 def dynamic_segment_length_meters_speed_acceleration_1(x): # [lookAhead, stepSize]
@@ -44,7 +44,7 @@ def dynamic_segment_length_meters_speed_acceleration_1(x): # [lookAhead, stepSiz
     # generate a unique and descriptive folder name
     folderName = f"dynamic_segment_length_meters_speed_acceleration_1_{tsc}_{metric}_{uuid.uuid4()}"
 
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1 --segmentationValue={lookAhead} --secondarySegmentationValue={stepSize} --saveResults --folderName={folderName}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1 --segmentationValue={lookAhead} --secondarySegmentationValue={stepSize} --saveResults --folderName={folderName} --featureName={featureName}\""
     return segmentation_run(command, folderName)
 
 def dynamic_segment_length_meters_speed(x): # [lookAhead, scalar, stepSize]
@@ -53,7 +53,7 @@ def dynamic_segment_length_meters_speed(x): # [lookAhead, scalar, stepSize]
     # generate a unique and descriptive folder name
     folderName = f"dynamic_segment_length_meters_speed_{tsc}_{metric}_{uuid.uuid4()}"
 
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED --segmentationValue={lookAhead} --secondarySegmentationValue={scalar} --tertiarySegmentationValue={stepSize} --saveResults --folderName={folderName}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED --segmentationValue={lookAhead} --secondarySegmentationValue={scalar} --tertiarySegmentationValue={stepSize} --saveResults --folderName={folderName} --featureName={featureName}\""
     return segmentation_run(command, folderName)
 
 def sliding_window_multistart_meters(x): # [windowSize1, windowSize2, windowSize3]
@@ -62,7 +62,7 @@ def sliding_window_multistart_meters(x): # [windowSize1, windowSize2, windowSize
     # generate a unique and descriptive folder name
     folderName = f"sliding_window_multistart_meters_{tsc}_{metric}_{uuid.uuid4()}"
 
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_METERS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3} --saveResults --folderName={folderName}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_METERS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3} --saveResults --folderName={folderName} --featureName={featureName}\""
     return segmentation_run(command, folderName)
 
 def sliding_window_multistart_seconds(x): # [windowSize1, windowSize2, windowSize3]
@@ -71,7 +71,7 @@ def sliding_window_multistart_seconds(x): # [windowSize1, windowSize2, windowSiz
     # generate a unique and descriptive folder name
     folderName = f"sliding_window_multistart_seconds_{tsc}_{metric}_{uuid.uuid4()}"
 
-    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_SECONDS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3} --saveResults --folderName={folderName}\""
+    command = f"cd ../stars-carla-experiments & gradlew run --args=\"--segmentationType=SLIDING_WINDOW_MULTISTART_SECONDS --segmentationValue={windowSize1} --secondarySegmentationValue={windowSize2} --tertiarySegmentationValue={windowSize3} --saveResults --folderName={folderName} --featureName={featureName}\""
     return segmentation_run(command, folderName)
 
 def getJson(metric, folderName):
@@ -87,38 +87,8 @@ def getJson(metric, folderName):
 
 def getSingleMetric(metric, valueName, folderName):
     result = getJson(metric, folderName)
-    print(f"{metric}: {result[valueName]}")
+    print(f"{metric} | {valueName}: {result[valueName]}")
     return result[valueName]
-
-def outgoingEdgesContainFeature(outgoingEdges, featureName):
-    containsFeature = False
-
-    for edge in outgoingEdges:
-        destination = edge['destination']
-        if destination['label'] == featureName:
-            containsFeature = True
-        else:
-            if outgoingEdgesContainFeature(destination['outgoingEdges'], featureName):
-                containsFeature = True
-
-    return containsFeature
-
-def getFeatureCount(metric, featureName, folderName):
-    jsonFile = getJson(metric, folderName)
-
-    values = jsonFile['value']
-    count = 0
-
-    for value in values:
-        if metric == 'valid-tsc-instances-per-tsc':
-            value = value['tscInstance']
-        if value['label'] == featureName:
-            count += 1
-        else:
-            if outgoingEdgesContainFeature(value['outgoingEdges'], featureName):
-                count += 1
-
-    return count
 
 def calculateTscCoverage(folderName):
     valid_tsc_instances = getSingleMetric('valid-tsc-instances-per-tsc', 'count', folderName)
@@ -126,14 +96,14 @@ def calculateTscCoverage(folderName):
     return -(valid_tsc_instances / (valid_tsc_instances + missed_tsc_instances))
 
 def calculateFeatureCombinationCoverage(folderName):
-    found_predicate_combinations = getSingleMetric('missed-predicate-combinations', 'found', folderName)
-    missed_predicate_combinations = getSingleMetric('missed-predicate-combinations', 'count', folderName)
+    found_predicate_combinations = getSingleMetric('missed-and-found-predicate-combinations', 'found', folderName)
+    missed_predicate_combinations = getSingleMetric('missed-and-found-predicate-combinations', 'missed', folderName)
     return -(found_predicate_combinations / (found_predicate_combinations + missed_predicate_combinations))
 
 def calculateFeatureCoverage(folderName):
     global featureName
-    found_instances_with_feature = getFeatureCount('valid-tsc-instances-per-tsc', featureName, folderName)
-    missed_instances_with_feature = getFeatureCount('missed-tsc-instances-per-tsc', featureName, folderName)
+    found_instances_with_feature = getSingleMetric('valid-tsc-instances-per-tsc', 'featureCount', folderName)
+    missed_instances_with_feature = getSingleMetric('missed-tsc-instances-per-tsc', 'featureCount', folderName)
     return -(found_instances_with_feature / (found_instances_with_feature + missed_instances_with_feature))
 
 def simpleMetric(folderName):
@@ -165,7 +135,7 @@ def segmentation_run(command, folderName):
 
     # Execute stars analysis
     start_time = time.time()
-    subprocess.run(command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+    subprocess.run(command, shell=True, check=True)
     end_time = time.time()
 
     # Track execution time

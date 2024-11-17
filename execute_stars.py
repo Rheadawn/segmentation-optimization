@@ -8,7 +8,7 @@ import uuid
 
 total_execution_time = 0
 tsc = "full-TSC"
-metric = "metric1"
+metric = "simpleMetric"
 featureName = "Overtaking"
 
 def by_length(x): # [segmentSize]
@@ -135,7 +135,7 @@ def segmentation_run(command, folderName):
 
     # Execute stars analysis
     start_time = time.time()
-    subprocess.run(command, shell=True, check=True)
+    subprocess.run(command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     end_time = time.time()
 
     # Track execution time

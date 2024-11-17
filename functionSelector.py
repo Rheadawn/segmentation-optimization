@@ -5,13 +5,13 @@ def getBounds(segmentationType):
         case "BY_LENGTH":
             return [(100, 200)] # segmentSize
         case "STATIC_SEGMENT_LENGTH_SECONDS":
-            return [(25, 100), (0.1, 0.75)] # windowSize, overlapPercentage
+            return [(5, 150), (0.5, 0.5)] # windowSize, overlapPercentage
         case "STATIC_SEGMENT_LENGTH_METERS":
-            return [(30, 150), (0.1, 0.75)] # windowSize, overlapPercentage
+            return [(5, 300), (0.5, 0.5)] # windowSize, overlapPercentage
         case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
-            return [(10, 100), (1, 50)] # lookAhead, stepSize
+            return [(5, 105), (5, 5)] # lookAhead, stepSize
         case "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
-            return [(10, 100), (200, 400), (1, 50)] # lookAhead, scalar, stepSize
+            return [(5, 105), (-1000, 1000), (5, 5)] # lookAhead, scalar, stepSize
         case "SLIDING_WINDOW_MULTISTART_METERS":
             return [(30, 150), (30, 150), (30, 150)] # windowSize1, windowSize2, windowSize3
         case "SLIDING_WINDOW_MULTISTART_SECONDS":

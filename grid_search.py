@@ -61,6 +61,36 @@ parser.add_argument('--metric', type=str, default="simpleMetric", help='Name of 
 parser.add_argument('--featureName', type=str, default="Overtaking", help='Name of the feature to be used in the quality metric')
 
 
+custom_args = ["--segmentationType","DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1","--stepSizeDim1","5.0","--stepSizeDim2","1.0","--tsc","full-TSC","--metric","simpleMetric"]
+args = parser.parse_args(custom_args)
+
+set_TSC(args.tsc)
+set_metric(args.metric)
+set_featureName(args.featureName)
+
+# Bounded region of parameter space
+pbounds = getBounds(args.segmentationType)
+method = getMethod(args.segmentationType)
+dimCount = getNumberOfDimensions(args.segmentationType)
+
+start_time = time.time()
+maxResult = 0
+if(dimCount == 1):
+    maxResult = grid_search_one_dimension()
+elif(dimCount == 2):
+    maxResult = grid_search_two_dimensions()
+elif(dimCount == 3):
+    maxResult = grid_search_three_dimensions()
+end_time = time.time()
+
+print(f"MAXIMUM: {maxResult}\n")
+print(f"STARS execution time: {get_total_execution_time():.0f} s\n")
+print(f"Total execution time: {(end_time - start_time):.0f} s\n")
+
+
+
+
+
 custom_args = ["--segmentationType","STATIC_SEGMENT_LENGTH_SECONDS","--stepSizeDim1","5.0","--stepSizeDim2","1.0","--tsc","full-TSC","--metric","simpleMetric"]
 args = parser.parse_args(custom_args)
 
@@ -121,31 +151,7 @@ print(f"Total execution time: {(end_time - start_time):.0f} s\n")
 
 
 
-custom_args = ["--segmentationType","DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1","--stepSizeDim1","5.0","--stepSizeDim2","1.0","--tsc","full-TSC","--metric","simpleMetric"]
-args = parser.parse_args(custom_args)
 
-set_TSC(args.tsc)
-set_metric(args.metric)
-set_featureName(args.featureName)
-
-# Bounded region of parameter space
-pbounds = getBounds(args.segmentationType)
-method = getMethod(args.segmentationType)
-dimCount = getNumberOfDimensions(args.segmentationType)
-
-start_time = time.time()
-maxResult = 0
-if(dimCount == 1):
-    maxResult = grid_search_one_dimension()
-elif(dimCount == 2):
-    maxResult = grid_search_two_dimensions()
-elif(dimCount == 3):
-    maxResult = grid_search_three_dimensions()
-end_time = time.time()
-
-print(f"MAXIMUM: {maxResult}\n")
-print(f"STARS execution time: {get_total_execution_time():.0f} s\n")
-print(f"Total execution time: {(end_time - start_time):.0f} s\n")
 
 
 

@@ -4,9 +4,9 @@ def getBounds(segmentationType):
     if segmentationType == "BY_LENGTH":
         return [(100, 200)]  # segmentSize
     elif segmentationType == "STATIC_SEGMENT_LENGTH_SECONDS":
-        return [(5, 150), (0.5, 0.5)]  # windowSize, overlapPercentage
+        return [(5, 150), (10.0, 10.0)]  # windowSize, stepSize
     elif segmentationType == "STATIC_SEGMENT_LENGTH_METERS":
-        return [(5, 300), (0.5, 0.5)]  # windowSize, overlapPercentage
+        return [(5, 300), (20.0, 20.0)]  # windowSize, stepSize
     elif segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
         return [(5, 100), (5, 5)]  # lookAhead, stepSize
     elif segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":

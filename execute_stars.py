@@ -10,10 +10,10 @@ total_execution_time = 0
 tsc = "full-TSC"
 metric = "simpleMetric"
 featureName = "Overtaking"
-commandStart = "../distribution/bin/stars-carla-experiments"
+commandStart = "../distribution/bin/stars-carla-experiments "
 
 def commandEnd(folderName, featureName):
-    return f"\"--folderName={folderName}\" \"--featureName={featureName}\" \"--minSegmentTicks=0\" \"--input=../distribution/bin/stars-reproduction-source/stars-experiments-data/simulation_runs\" \"--saveResults\""
+    return f" \"--folderName={folderName}\" \"--featureName={featureName}\" \"--minSegmentTicks=0\" \"--input=../distribution/bin/stars-reproduction-source/stars-experiments-data/simulation_runs\" \"--saveResults\""
 
 def by_length(x): # [segmentSize]
     segmentSize = x[0]

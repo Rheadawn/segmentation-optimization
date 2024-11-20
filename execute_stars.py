@@ -82,7 +82,7 @@ def getJson(metric, folderName):
     global tsc
 
     # Go to serialized-results folder and get metric for tsc out of result folder
-    folder_path = os.path.join('..', 'stars-carla-experiments', 'serialized-results', folderName, metric, tsc.replace('-',' ') + '.json')
+    folder_path = os.path.join('serialized-results', folderName, metric, tsc.replace('-',' ') + '.json')
     result_file = glob.glob(folder_path)
 
     # Load json and return value

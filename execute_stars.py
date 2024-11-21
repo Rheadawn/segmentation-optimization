@@ -13,7 +13,7 @@ featureName = "Overtaking"
 commandStart = "../distribution/bin/stars-carla-experiments "
 
 def commandEnd(folderName, featureName):
-    return f" \"--folderName={folderName}\" \"--featureName={featureName}\" \"--minSegmentTicks=0\" \"--input=../distribution/bin/stars-reproduction-source/stars-experiments-data/simulation_runs\" \"--saveResults\""
+    return f" \"--folderName={folderName}\" \"--featureName={featureName}\" \"--minSegmentTicks=0\" \"--input=../stars-reproduction-source/stars-experiments-data/simulation_runs\" \"--saveResults\""
 
 def by_length(x): # [segmentSize]
     segmentSize = x[0]

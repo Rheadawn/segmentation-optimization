@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser(description='Saves a graph for the given segmentationType and metric')
-parser.add_argument('--segmentationType', type=str, default="BY_LENGTH", help='Name of the segmentation method to get the data from')
+parser.add_argument('--segmentationType', type=str, default="by_length", help='Name of the segmentation method to get the data from')
 parser.add_argument('--metric', type=str, default="valid-tsc-instances-per-tsc", help='Name of the metric beeing shown in the graph')
 parser.add_argument('--metricKey', type=str, default="count", help='Key for the metric json')
 parser.add_argument('--tsc', type=str, default="full-TSC", help='Name of the used TSC')

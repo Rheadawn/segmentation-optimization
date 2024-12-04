@@ -110,28 +110,20 @@ def calculateFeatureCoverage(folderName):
     missed_instances_with_feature = getSingleMetric('missed-tsc-instances-per-tsc', 'featureCount', folderName)
     return -(found_instances_with_feature / (found_instances_with_feature + missed_instances_with_feature))
 
-def simpleMetric(folderName):
+def tsc_coverage(folderName):
+    tsc_coverage = calculateTscCoverage(folderName)
+    return tsc_coverage
+
+def tsc_and_feature_combination_coverage(folderName):
     tsc_coverage = calculateTscCoverage(folderName)
     feature_combination_coverage = calculateFeatureCombinationCoverage(folderName)
-    conformity_rate_seconds = getSingleMetric('segment-length-metric', 'conformityRateSeconds', folderName)
-    conformity_rate_meters = getSingleMetric('segment-length-metric', 'conformityRateMeters', folderName)
 
-    reward = (tsc_coverage + feature_combination_coverage) / 2
-    punishment = -(((1-conformity_rate_seconds)**2 + (1-conformity_rate_meters)**2) / 2)
+    total_coverage = (tsc_coverage + feature_combination_coverage) / 2
+    return total_coverage
 
-    return reward - punishment
-
-def specificMetric(folderName):
-    tsc_coverage = calculateTscCoverage(folderName)
-    feature_combination_coverage = calculateFeatureCombinationCoverage(folderName)
+def single_feature_coverage(folderName):
     feature_coverage = calculateFeatureCoverage(folderName)
-    conformity_rate_seconds = getSingleMetric('segment-length-metric', 'conformityRateSeconds', folderName)
-    conformity_rate_meters = getSingleMetric('segment-length-metric', 'conformityRateMeters', folderName)
-
-    reward = (tsc_coverage + feature_combination_coverage + feature_coverage) / 3
-    punishment = -(((1-conformity_rate_seconds)**2 + (1-conformity_rate_meters)**2) / 2)
-    
-    return reward - punishment
+    return feature_coverage
 
 def segmentation_run(command, folderName):
     global total_execution_time

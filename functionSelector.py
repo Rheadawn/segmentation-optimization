@@ -2,19 +2,19 @@ from execute_stars import by_length, static_segment_length_seconds, static_segme
 
 def getBounds(segmentationType):
     if segmentationType == "BY_LENGTH":
-        return [(100, 200)]  # segmentSize
+        return [(100.0, 200.0)]  # segmentSize
     elif segmentationType == "STATIC_SEGMENT_LENGTH_SECONDS":
-        return [(5, 150), (10.0, 10.0)]  # windowSize, stepSize
+        return [(0.5, 120.0), (2.0, 2.0)]  # windowSize, stepSize
     elif segmentationType == "STATIC_SEGMENT_LENGTH_METERS":
-        return [(5, 300), (20.0, 20.0)]  # windowSize, stepSize
+        return [(5.0, 300.0), (20.0, 20.0)]  # windowSize, stepSize
     elif segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
-        return [(5, 100), (5, 5)]  # lookAhead, stepSize
+        return [(5.0, 100.0), (5.0, 5.0)]  # lookAhead, stepSize
     elif segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
-        return [(2, 40), (0.2, 4.0), (5, 5)]  # lookAhead, scalar, stepSize
+        return [(2.0, 40.0), (0.2, 4.0), (5.0, 5.0)]  # lookAhead, scalar, stepSize
     elif segmentationType == "SLIDING_WINDOW_MULTISTART_METERS":
-        return [(30, 150), (30, 150), (30, 150)]  # windowSize1, windowSize2, windowSize3
+        return [(30.0, 150.0), (30.0, 150.0), (30.0, 150.0)]  # windowSize1, windowSize2, windowSize3
     elif segmentationType == "SLIDING_WINDOW_MULTISTART_SECONDS":
-        return [(25, 100), (25, 100), (25, 100)]  # windowSize1, windowSize2, windowSize3
+        return [(25.0, 100.0), (25.0, 100.0), (25.0, 100.0)]  # windowSize1, windowSize2, windowSize3
 
 def getMethod(segmentationType):
     if segmentationType == "BY_LENGTH":

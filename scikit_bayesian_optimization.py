@@ -61,10 +61,18 @@ with open(f"optimization_results/iterations_{args.segmentationType}_{args.metric
 # save convergence plot
 plot_convergence(res)
 filename = f"optimization_results/convergence_plot_{args.segmentationType}_{args.metric}.png"
+plt.xlabel("Anzahl der Funktionsaufrufe")
+plt.ylabel("Maximum nach n Funktionsaufrufen")
+plt.title("Konvergenz")
 plt.savefig(filename)
 
 # save surrogate model plots
 for i in range(0, len(res.x_iters)):
+    # Clear the current figure
+    plt.clf()  
+    # Create a new figure with specified size
+    plt.figure(figsize=(12, 5))  
+
     # Plot surrogate model
     plt.subplot(1, 2, 1)
     ax = plot_gaussian_process(res, 
@@ -77,7 +85,8 @@ for i in range(0, len(res.x_iters)):
 
     # Plot EI(x)
     plt.subplot(1, 2, 2)
-    ax = plot_gaussian_process(res, 
+    try:
+        ax = plot_gaussian_process(res, 
                                n_calls=i,
                                show_title=False,
                                show_mu=False, 
@@ -85,6 +94,8 @@ for i in range(0, len(res.x_iters)):
                                show_observations=False,
                                show_next_point=True
                                )
+    except ValueError:
+        pass
     ax.set_ylabel("")
     ax.set_xlabel("")
 

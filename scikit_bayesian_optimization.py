@@ -5,7 +5,7 @@ import json
 from skopt import gp_minimize
 from execute_stars import get_total_execution_time, set_TSC, set_metric, set_featureName
 from functionSelector import getBounds, getMethod
-from skopt.plots import plot_convergence
+from skopt.plots import plot_convergence, plot_gaussian_process
 
 
 
@@ -58,11 +58,36 @@ with open(f"optimization_results/metadata_{args.segmentationType}_{args.metric}.
 with open(f"optimization_results/iterations_{args.segmentationType}_{args.metric}.json", "w") as file:
     json.dump([{"parameters": [{"value": res.x_iters[i][j]} for j in range (0, len(res.x_iters[i]))], "result": res.func_vals[i]} for i in range(0, len(res.x_iters))], file)
 
-# save surrogate models in one file
-with open(f"optimization_results/surrogate_models_{args.segmentationType}_{args.metric}.json", "w") as file:
-    json.dump([{"model": res.models[i].to_dict()} for i in range(0, len(res.models))], file)
-
 # save convergence plot
 plot_convergence(res)
 filename = f"optimization_results/convergence_plot_{args.segmentationType}_{args.metric}.png"
 plt.savefig(filename)
+
+# save surrogate model plots
+for i in range(0, len(res.x_iters)):
+    # Plot surrogate model
+    plt.subplot(1, 2, 1)
+    ax = plot_gaussian_process(res, 
+                               n_calls=i,
+                               show_title=False,
+                               show_next_point=True
+                               )
+    ax.set_ylabel("")
+    ax.set_xlabel("")
+
+    # Plot EI(x)
+    plt.subplot(1, 2, 2)
+    ax = plot_gaussian_process(res, 
+                               n_calls=i,
+                               show_title=False,
+                               show_mu=False, 
+                               show_acq_func=True,
+                               show_observations=False,
+                               show_next_point=True
+                               )
+    ax.set_ylabel("")
+    ax.set_xlabel("")
+
+    # Save plot
+    filename = f"optimization_results/surrogate_models_plot_{args.segmentationType}_{args.metric}_{i}.png"
+    plt.savefig(filename)

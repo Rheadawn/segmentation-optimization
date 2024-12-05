@@ -6,15 +6,8 @@ from skopt import gp_minimize
 from execute_stars import get_total_execution_time, set_TSC, set_metric, set_featureName
 from functionSelector import getBounds, getMethod
 from skopt.plots import plot_convergence, plot_gaussian_process
-count = 0
 
-def test(x):
-    global count
-    count += 1
-    print(count)
-    return x[0]*2
 
-bounds = [(0.0, 1000.0)]
 
 # Parse segmentation parameters
 parser = argparse.ArgumentParser(description='Bayesian Optimization for optimizing the segmentation used in STARS')
@@ -40,8 +33,8 @@ pbounds = getBounds(args.segmentationType)
 method = getMethod(args.segmentationType)
 
 start_time = time.time()
-res = gp_minimize(test,                                   # the function to minimize
-                  bounds,                                  # the bounds on each dimension of x
+res = gp_minimize(method,                                   # the function to minimize
+                  pbounds,                                  # the bounds on each dimension of x
                   acq_func="EI",                            # the acquisition function
                   n_calls=args.n_calls,                     # the number of evaluations of f
                   n_initial_points=args.n_random_starts,    # the number of random initialization points

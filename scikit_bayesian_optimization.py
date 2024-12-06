@@ -52,7 +52,7 @@ with open(f"optimization_results/metadata_{args.segmentationType}_{args.metric}.
 
 # save results for all parameter combiantions analyzed
 with open(f"optimization_results/iterations_{args.segmentationType}_{args.metric}.json", "w") as file:
-    json.dump([{"parameters": [{"value": int(res.x_iters[i][j])} for j in range (0, len(res.x_iters[i]))], "result": int(res.func_vals[i])} for i in range(0, len(res.x_iters))], file)
+    json.dump([{"parameters": [{"value": float(res.x_iters[i][j])} for j in range (0, len(res.x_iters[i]))], "result": float(res.func_vals[i])} for i in range(0, len(res.x_iters))], file)
 
 # save convergence plot
 plot_convergence(res)
@@ -63,10 +63,8 @@ plt.title("Konvergenz")
 plt.savefig(filename)
 plt.close()
 
-print(len(res.models))
-
 # save surrogate model plots
-for i in range(0, len(res.x_iters)-1):
+for i in range(0, len(res.models)-1):
     # Clear the current figure
     plt.clf()  
     # Create a new figure with specified size

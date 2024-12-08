@@ -2,6 +2,7 @@ import time
 import argparse
 import matplotlib.pyplot as plt
 import json
+import os
 from skopt import gp_minimize
 from execute_stars import get_total_execution_time, set_TSC, set_metric, set_featureName
 from functionSelector import getBounds, getMethod
@@ -45,6 +46,9 @@ res = gp_minimize(method,                                   # the function to mi
 end_time = time.time()
 
 
+# create folder optimization_results if it does not exist
+if not os.path.exists("optimization_results"):
+    os.makedirs("optimization_results")
 
 # save metadata
 with open(f"optimization_results/metadata_{args.segmentationType}_{args.metric}.json", "w") as file:

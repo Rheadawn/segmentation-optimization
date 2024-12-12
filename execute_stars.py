@@ -33,12 +33,12 @@ def static_segment_length_seconds(x): # [windowSize]
     
     return segmentation_run(command, folderName)
 
-def static_segment_length_meters(x): # [windowSize, overlapPercentage]
-    windowSize, overlapPercentage = x
+def static_segment_length_meters(x): # [windowSize]
+    windowSize = x[0]
 
     # generate a unique and descriptive folder name
     folderName = f"static_segment_length_meters_{tsc}_{metric}_{str(uuid.uuid4())[:8]}"
-    command = commandStart + f"\"--segmentationType=STATIC_SEGMENT_LENGTH_METERS\" \"--segmentationValue={windowSize}\" \"--secondarySegmentationValue={overlapPercentage}\"" + commandEnd(folderName, featureName)
+    command = commandStart + f"\"--segmentationType=STATIC_SEGMENT_LENGTH_METERS\" \"--segmentationValue={windowSize}\" \"--secondarySegmentationValue=2.0\"" + commandEnd(folderName, featureName)
     
     return segmentation_run(command, folderName)
 

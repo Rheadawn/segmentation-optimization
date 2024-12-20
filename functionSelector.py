@@ -8,7 +8,7 @@ def getBounds(segmentationType):
     elif segmentationType == "STATIC_SEGMENT_LENGTH_METERS":
         return [(0.5, 300.0)]  # windowSize
     elif segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
-        return [(5.0, 100.0), (5.0, 5.0)]  # lookAhead, stepSize
+        return [(0.5, 150.0)]  # lookAhead
     elif segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
         return [(2.0, 40.0), (0.2, 4.0), (5.0, 5.0)]  # lookAhead, scalar, stepSize
     elif segmentationType == "SLIDING_WINDOW_MULTISTART_METERS":
@@ -42,7 +42,7 @@ def getNumberOfDimensions(segmentationType):
     elif segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED":
         return 3
     elif segmentationType == "DYNAMIC_SEGMENT_LENGTH_METERS_SPEED_ACCELERATION_1":
-        return 2
+        return 1
     elif segmentationType == "SLIDING_WINDOW_MULTISTART_METERS":
         return 3
     elif segmentationType == "SLIDING_WINDOW_MULTISTART_SECONDS":

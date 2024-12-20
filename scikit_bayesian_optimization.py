@@ -51,16 +51,16 @@ if not os.path.exists("optimization_results"):
     os.makedirs("optimization_results")
 
 # save metadata
-with open(f"optimization_results/metadata_{args.segmentationType}_{args.metric}.json", "w") as file:
+with open(f"optimization_results/metadata_{args.segmentationType}_{args.metric}_{args.featureName}.json", "w") as file:
     json.dump({"segmentationType": args.segmentationType, "metric": args.metric, "tsc": args.tsc, "featureName": args.featureName, "n_random_starts": args.n_random_starts, "n_calls": args.n_calls, "stars_execution_time": get_total_execution_time(), "total_execution_time": (end_time - start_time)}, file)
 
 # save results for all parameter combiantions analyzed
-with open(f"optimization_results/iterations_{args.segmentationType}_{args.metric}.json", "w") as file:
+with open(f"optimization_results/iterations_{args.segmentationType}_{args.metric}_{args.featureName}.json", "w") as file:
     json.dump([{"parameters": [{"value": float(res.x_iters[i][j])} for j in range (0, len(res.x_iters[i]))], "result": float(res.func_vals[i])} for i in range(0, len(res.x_iters))], file)
 
 # save convergence plot
 plot_convergence(res)
-filename = f"optimization_results/convergence_plot_{args.segmentationType}_{args.metric}.png"
+filename = f"optimization_results/convergence_plot_{args.segmentationType}_{args.metric}_{args.featureName}.png"
 plt.xlabel("Anzahl der Funktionsaufrufe")
 plt.ylabel("Maximum nach n Funktionsaufrufen")
 plt.title("Konvergenz")
@@ -104,6 +104,6 @@ for i in range(0, len(res.models)-1):
     ax.set_xlabel("Bounds")
 
     # Save plot
-    filename = f"optimization_results/surrogate_models_plot_{args.segmentationType}_{args.metric}_{i+1}.png"
+    filename = f"optimization_results/surrogate_models_plot_{args.segmentationType}_{args.metric}_{args.featureName}_{i+1}.png"
     plt.savefig(filename)
     plt.close()

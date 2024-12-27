@@ -51,12 +51,12 @@ def dynamic_segment_length_meters_speed_acceleration_1(x): # [lookAhead, stepSiz
 
     return segmentation_run(command, folderName)
 
-def dynamic_segment_length_meters_speed(x): # [lookAhead, scalar, stepSize]
-    lookAhead, scalar, stepSize = x
+def dynamic_segment_length_meters_speed(x): # [lookAhead, scalar]
+    lookAhead, scalar = x
 
     # generate a unique and descriptive folder name
     folderName = f"dynamic_segment_length_meters_speed_{tsc}_{metric}_{str(uuid.uuid4())[:8]}"
-    command = commandStart + f"\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED\" \"--segmentationValue={lookAhead}\" \"--secondarySegmentationValue={scalar}\" \"--tertiarySegmentationValue={stepSize}\"" + commandEnd(folderName, featureName)
+    command = commandStart + f"\"--segmentationType=DYNAMIC_SEGMENT_LENGTH_METERS_SPEED\" \"--segmentationValue={lookAhead}\" \"--secondarySegmentationValue={scalar}\" \"--tertiarySegmentationValue=2.0\"" + commandEnd(folderName, featureName)
 
     return segmentation_run(command, folderName)
 
